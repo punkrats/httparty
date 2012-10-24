@@ -108,7 +108,10 @@ module HTTParty
     protected
 
     def xml
-      MultiXml.parse(body)
+      _body = body
+      _body.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => '')
+      _body.encode!('UTF-8', 'UTF-16')
+      MultiXml.parse(_body)
     end
 
     def json
